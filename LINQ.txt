@@ -13,12 +13,13 @@ var result = products.Any(p=> p.ProductName == "Laptop");
 OrderBy - Ascending // Descending // ThenBy
 var result = products.Where(p=> p.ProductName.Contains("top")).OrderBy(p=> p.UnitPrice).ThenByDescending(p=> p.ProductName);
 
-var result = from p in products
+List<ProductDTO> productDTOs;
+productDTOs = (from p in products
 	     join c in categories
 	     on p.CategoryId equals c.Category.Id
 	     where p.UnitPrice > 5000
 	     order by p.UnitPrice descending, p.ProductName ascending
-	     select new ProductDTO { ProductId = p.ProductId, CategoryName = c.CategoryName, ProductName = p.ProductName, UnitPrice = p.UnitPrice }
+	     select new ProductDTO { ProductId = p.ProductId, CategoryName = c.CategoryName, ProductName = p.ProductName, UnitPrice = p.UnitPrice }).ToList();
 
 class ProductDto
 {
