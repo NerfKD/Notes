@@ -1,0 +1,29 @@
+Find() - tek kayıt döner.
+var result = products.Find(p=> p.ProductId == 15);
+
+FindAll() - içerisinde top geçenleri getir.
+var result = products.FindAll(p=> p.ProductName.Contains("top"));
+
+Where() - eşleşenleri döner - IEnumarable liste döner.
+var result = products.Where(p=> p.ProductName.Contains("top"));
+
+Any() - bool döner.
+var result = products.Any(p=> p.ProductName == "Laptop");
+
+OrderBy - Ascending // Descending // ThenBy
+var result = products.Where(p=> p.ProductName.Contains("top")).OrderBy(p=> p.UnitPrice).ThenByDescending(p=> p.ProductName);
+
+var result = from p in products
+	     join c in categories
+	     on p.CategoryId equals c.Category.Id
+	     where p.UnitPrice > 5000
+	     order by p.UnitPrice descending, p.ProductName ascending
+	     select new ProductDTO { ProductId = p.ProductId, CategoryName = c.CategoryName, ProductName = p.ProductName, UnitPrice = p.UnitPrice }
+
+class ProductDto
+{
+	public int ProductId {get; set;}	
+	public string CategoryName {get; set;}
+	public string ProductName {get; set;}
+	public decimal UnitPrice{get; set;}
+}
